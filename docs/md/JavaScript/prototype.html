@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      function Animal(name) {
+        this.name = name
+        this.age = 10
+      }
+      console.log(Animal.toString === Object.toString)
+      console.log(Animal.toString === Function.prototype.toString)
+      const dog = new Animal('dog')
+      console.log(dog)
+      // console.dir(Animal);
+      // console.dir(Object);
+      // Object是一个构造函数
+      // const o = new Object
+      // const f = new Function()
+      // f()
+      // console.log(o);
+      // console.dir(f);
+      // console.dir(Object);
+      // console.dir(Date);
+      // console.dir(RegExp);
+      // console.dir(String);
+      // console.dir(Array);
+      console.dir(Object.prototype === Function.__proto__)
+      // console.dir(Function.prototype.__proto__.__proto__);
+      // console.dir(Function.__proto__.__proto__.__proto__);
+      // console.log('=====================');
+      // console.log(Object.prototype.__proto__);//null
+    </script>
+  </body>
+</html>

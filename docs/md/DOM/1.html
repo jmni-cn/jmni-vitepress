@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <div
+      id="a"
+      style="width: 300px; height: 300px; background-color: antiquewhite"
+    >
+      a
+      <div
+        id="b"
+        style="width: 300px; height: 200px; background-color: burlywood"
+      >
+        b
+        <div
+          id="c"
+          style="width: 300px; height: 100px; background-color: cornflowerblue"
+        >
+          c
+        </div>
+      </div>
+    </div>
+    <div id="id">id</div>
+    <ul id="item-list">
+      <li>item1</li>
+      <li>item2</li>
+      <li>item3</li>
+      <li>item4</li>
+    </ul>
+    <button>button</button>
+    <script>
+      var a = document.getElementById('a')
+      var b = document.getElementById('b')
+      var c = document.getElementById('c')
+      // //注册冒泡事件监听器
+      // a.addEventListener('click', () => { console.log("冒泡a") })
+      // b.addEventListener('click', () => { console.log('冒泡b') })
+      // c.addEventListener('click', () => { console.log("冒泡c") })
+
+      // a.addEventListener('click', () => { console.log("捕获a") }, true)
+      // b.addEventListener('click', () => { console.log('捕获b') }, true)
+      // c.addEventListener('click', () => { console.log("捕获c") }, true)
+
+      var items = document.getElementById('item-list')
+      // //事件捕获实现事件代理
+      // items.addEventListener('click', (e) => { console.log('捕获：click ', e.target.innerHTML) }, true);
+      // //事件冒泡实现事件代理
+      // items.addEventListener('click', (e) => { console.log('冒泡：click ', e.target.innerHTML) }, false);
+
+      var ele = document.getElementById('id')
+
+      // window.addEventListener('click',function(){console.log('捕获-触发了window层')}, true)  //第三个参数默认为false，执行冒泡机制，true为捕获阶段
+      // document.addEventListener('click',function(){console.log('捕获-触发了document层')}, true)
+      // document.documentElement.addEventListener('click',function(){console.log('捕获-触发了html层')}, true)
+      // document.body.addEventListener('click',function(){console.log('捕获-触发了boy层')}, true)
+      // ele.addEventListener('click',function(){console.log('捕获-触发了element元素层')}, true)
+
+      // window.addEventListener('click',function(){console.log('冒泡-触发了window层')}, false)  //第三个参数默认为false，执行冒泡机制，true为捕获阶段
+      // document.addEventListener('click',function(){console.log('冒泡-触发了document层')}, false)
+      // document.documentElement.addEventListener('click',function(){console.log('冒泡-触发了html层')}, false)
+      // document.body.addEventListener('click',function(){console.log('冒泡-触发了boy层')}, false)
+      // ele.addEventListener('click',function(){console.log('冒泡-触发了element元素层')}, false)
+
+      // var eve=new Event('custome')
+      // console.log(eve);
+
+      // ele.addEventListener('custome',function(){
+      //     console.log('custome')
+      // })
+      // ele.addEventListener('log',function(){
+      //     console.log('log')
+      // })
+      // items.addEventListener('custome',function(){
+      //     console.log('custome')
+      // })
+
+      // ele.dispatchEvent(eve)
+
+      const bubbleEvent = new Event('bubbleEvent', { bubbles: true })
+      const defaultEvent = new Event('defaultEvent', { bubbles: false })
+
+      document.addEventListener('bubbleEvent', () => {
+        // 这将被调用，因为事件将从按钮冒泡到文档
+        console.log('Bubble')
+      })
+
+      document.addEventListener('defaultEvent', () => {
+        // 这永远不会被调用，因为事件不能从按钮冒泡到文档
+        console.log('Default')
+      })
+
+      const button = document.querySelector('button')
+      button.dispatchEvent(bubbleEvent)
+      button.dispatchEvent(defaultEvent)
+    </script>
+  </body>
+</html>
