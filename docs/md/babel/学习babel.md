@@ -1,5 +1,7 @@
 ---
 title: "学习babel"
+tag: "babel"
+classify: "md"
 description: "学习babel"
 pubDate: "2023/3/21 11:14:11"
 heroImage: ""
@@ -142,7 +144,7 @@ babel 的 AST 最外层节点是 File，它有 program、comments、tokens 等�
 
 ### AST 可视化查看工具
 
-[astexplorer.net]([astexplorer.net](https://astexplorer.net/))
+[astexplorer.net](https://astexplorer.net/)
 
 ## babel 的 api 有哪些
 babel 的编译流程分为三步：parse、transform、generate，每一步都暴露了一些 api 出来。

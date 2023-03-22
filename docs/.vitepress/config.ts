@@ -160,6 +160,10 @@ function sidebarMd() {
       ]
     },
     {
+      text: 'babel',
+      items: [{ text: '学习babel', link: '/md/babel/学习babel' }]
+    },
+    {
       text: '性能优化',
       items: [
         {
@@ -198,8 +202,8 @@ function sidebarMd() {
 function sidebarDaily() {
   return [
     {
-      text: 'Daily',
-      items: [{ text: 'chat Based on OpenAI API', link: '/daily/chat' }]
+      text: 'chat Based on OpenAI API',
+      link: '/daily/chat'
     }
   ]
 }
