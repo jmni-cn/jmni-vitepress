@@ -5,6 +5,5 @@
 
 [访问地址1](http://blog.jmni.cn)
 
-[访问地址2](https://jmni-vitepress-g9hyaql6d-jmni-cn.vercel.app/)
 
 test1
