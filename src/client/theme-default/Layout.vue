@@ -7,7 +7,7 @@ import VPSkipLink from './components/VPSkipLink.vue'
 import VPBackdrop from './components/VPBackdrop.vue'
 import VPNav from './components/VPNav.vue'
 import VPLocalNav from './components/VPLocalNav.vue'
-import VPSidebar from './components/VPSidebar.vue'
+// import VPSidebar from './components/VPSidebar.vue'
 import VPContent from './components/VPContent.vue'
 import VPFooter from './components/VPFooter.vue'
 
@@ -48,10 +48,12 @@ provide('hero-image-slot-exists', heroImageSlotExists)
     </VPNav>
     <VPLocalNav :open="isSidebarOpen" @open-menu="openSidebar" />
 
+    <!--
     <VPSidebar :open="isSidebarOpen">
       <template #sidebar-nav-before><slot name="sidebar-nav-before" /></template>
       <template #sidebar-nav-after><slot name="sidebar-nav-after" /></template>
     </VPSidebar>
+    -->
 
     <VPContent>
       <template #home-hero-before><slot name="home-hero-before" /></template>
