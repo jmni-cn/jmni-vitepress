@@ -93,7 +93,7 @@ export default defineConfig({
 
 function nav() {
   return [
-    { text: 'Article list', link: '/list/' },
+    { text: 'Article list', link: '/list/' }
     // {
     //   text: 'daily',
     //   link: '/daily/chat Based on OpenAI API',
