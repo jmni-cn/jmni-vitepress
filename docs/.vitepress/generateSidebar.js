@@ -8,9 +8,7 @@ const normalize = (p) => path.posix.normalize(p)
 export const cerateJson = () => {
   return new Promise(async (resolve, reject) => {
     // 获取当前模块的 URL
-    const currentUrl = new URL(import.meta.url).pathname
-    const currentDir = normalize(path.dirname(normalize(currentUrl.slice(1))))
-    const rootPath = path.resolve(currentDir, '../')
+    const rootPath = path.resolve('../')
     let sidebar = {}
 
     async function getSidebar() {
