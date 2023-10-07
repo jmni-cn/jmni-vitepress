@@ -1,3 +1,12 @@
+---
+title: "vue2中的diff算法"
+tag: "Vue"
+classify: "md"
+description: "算法"
+pubDate: "2023/2/16 16:22:29"
+heroImage: "//static.jmni.cn/blog/img/4bacb27f527b46498d6ce0184372cc06.png"
+---
+
 # vue2中的diff算法
 
 >diff过程整体遵循深度优先、同层比较的策略。 当数据发生改变时，会调用Dep.notify通知所有Watcher，调用patch给真实的DOM打补丁，更新相应的视图。 patch两个节点之间比较会根据它们是否拥有子节点或者文本节点做不同操作。 比较两组子节点是重点：首先假设头尾节点可能相同，做4次比对尝试，如果没有找到相同节点则遍历查找，查找结束再按情况处理剩下的节点。 借助key通常可以非常精确找到相同节点。

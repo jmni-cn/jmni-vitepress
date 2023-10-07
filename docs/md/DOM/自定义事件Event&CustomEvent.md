@@ -1,3 +1,12 @@
+---
+title: "自定义事件Event&CustomEvent"
+tag: "JavaScript"
+classify: "md"
+description: "Event&CustomEvent"
+pubDate: "2023/2/20 17:12:18"
+heroImage: ""
+---
+
 # 自定义事件Event&CustomEvent
 来源：https://blog.webdevsimplified.com/2022-04/js-custom-events/
 ## Event

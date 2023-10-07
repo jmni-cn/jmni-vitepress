@@ -1,3 +1,12 @@
+---
+title: "输入 URL 到页面渲染的整个流程"
+tag: "性能优化"
+classify: "md"
+description: "性能优化"
+pubDate: "2023/2/15 12:19:14"
+heroImage: "/img/cache.png"
+---
+
 # 输入 URL 到页面渲染的整个流程
 
 浏览器是多进程的，有一个主控进程，以及每一个tab页面都会新开一个进程（某些情况下多个tab会合并进程）

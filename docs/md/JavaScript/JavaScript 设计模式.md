@@ -1,3 +1,12 @@
+---
+title: "JavaScript 设计模式"
+tag: "JavaScript"
+classify: "md"
+description: "设计模式"
+pubDate: "2023/2/15 12:19:14"
+heroImage: ""
+---
+
 # JavaScript 设计模式
 
 ## SOLID设计原则

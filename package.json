@@ -74,11 +74,12 @@
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
     "release": "node scripts/release.js",
     "docs": "run-p dev docs-dev",
-    "docs-dev": "wait-on -d 100 dist/node/cli.js && node ./bin/vitepress dev docs",
+    "docs-dev": "npm run docs-sidebar && wait-on -d 100 dist/node/cli.js && node ./bin/vitepress dev docs",
     "docs-debug": "node --inspect-brk ./bin/vitepress dev docs",
     "docs-build": "run-s build docs-build-only",
-    "docs-build-only": "node ./bin/vitepress build docs",
-    "docs-preview": "node ./bin/vitepress preview docs"
+    "docs-build-only": "npm run docs-sidebar && node ./bin/vitepress build docs",
+    "docs-preview": "node ./bin/vitepress preview docs",
+    "docs-sidebar": "cross-env evnpath=docs node docs/.vitepress/generateSidebar.js"
   },
   "dependencies": {
     "@docsearch/css": "^3.3.3",

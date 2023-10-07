@@ -1,3 +1,11 @@
+---
+title: "观察者模式和发布-订阅模式的区别"
+tag: "JavaScript"
+classify: "md"
+description: "观察者模式和发布-订阅模式的区别"
+pubDate: "2023/2/20 11:14:11"
+heroImage: "/img/2.png"
+---
 
 # 观察者模式和发布-订阅模式的区别
 

@@ -1,3 +1,12 @@
+---
+title: "图解 __proto__、prototype 和 constructor"
+tag: "JavaScript"
+classify: "md"
+description: "图解 __proto__、prototype 和 constructor"
+pubDate: "2023/2/20 11:14:11"
+heroImage: "//static.jmni.cn/blog/img/0e8aac3210394c91a15f25261d0548ad.png"
+---
+
 # 图解 __proto__、prototype 和 constructor
 
 我在图纸上画构造函数、实例、原型、`constructor` 、`__proto__`、`prototype`三者之间的关系图时，顺着`__proto__`和`prototype`试图寻找 JavaScript 宇宙本源的时候，

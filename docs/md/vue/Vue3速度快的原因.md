@@ -1,3 +1,12 @@
+---
+title: "Vue3速度快的原因"
+tag: "性能优化"
+classify: "md"
+description: "性能提升"
+pubDate: "2023/2/16 16:22:29"
+heroImage: ""
+---
+
 # Vue3速度快的原因
 
 ## Vue3.0 性能提升体现在哪些方面

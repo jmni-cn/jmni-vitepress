@@ -1,9 +1,10 @@
 import { createRequire } from 'module'
 import { defineConfig } from 'vitepress'
-import { JSON } from './generateSidebar'
-console.log(JSON)
-
+// import { sidebarJSON } from './generateSidebar'
+// console.log('sidebarJSON----------------')
+// console.log(sidebarJSON)
 const require = createRequire(import.meta.url)
+const sidebarJSON = require('./output.json')
 const pkg = require('vitepress/package.json')
 
 export default defineConfig({
@@ -54,7 +55,7 @@ export default defineConfig({
   themeConfig: {
     nav: nav(),
 
-    sidebar: JSON,
+    sidebar: sidebarJSON,
     // sidebar: {
     //   '/md/': sidebarMd(),
     //   '/daily/': sidebarDaily()

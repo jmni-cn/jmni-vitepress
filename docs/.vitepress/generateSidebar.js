@@ -1,14 +1,14 @@
 import fs from 'fs'
 import path from 'path'
 
-const WHITELIST = ['md', 'daily', 'knowledge', 'blog']
+const WHITELIST = ['md', 'daily', 'knowledge', 'blog', 'list-page']
 const COLLAPSED = ['DOM', 'JavaScript', 'nestjs', 'vue']
 const normalize = (p) => path.posix.normalize(p)
 
 export const cerateJson = () => {
   return new Promise(async (resolve, reject) => {
     // 获取当前模块的 URL
-    const rootPath = path.resolve('../')
+    const rootPath = path.resolve(process.cwd(), process.env.evnpath)
     let sidebar = {}
 
     async function getSidebar() {
@@ -22,8 +22,8 @@ export const cerateJson = () => {
 
       setTimeout(() => {
         resolve(sidebar)
-        // writeTextFile('output.json', JSON.stringify(sidebar))
-      }, 3000)
+        writeTextFile(rootPath+'/.vitepress/output.json', JSON.stringify(sidebar))
+      }, 2000)
     }
     await getSidebar()
 
@@ -75,15 +75,15 @@ export const cerateJson = () => {
   })
 }
 
-export const JSON = await cerateJson()
+export const sidebarJSON = await cerateJson()
 
 // writeTextFile('output.json', JSON.stringify(sidebar))
-// function writeTextFile(filename, content) {
-//     fs.writeFile(filename, content, (err) => {
-//         if (err) {
-//             console.error('Failed to write file:', err)
-//         } else {
-//             console.log('File written successfully.')
-//         }
-//     })
-// }
+function writeTextFile(filename, content) {
+    fs.writeFile(filename, content, (err) => {
+        if (err) {
+            console.error('Failed to write file:', err)
+        } else {
+            console.log('File written successfully.')
+        }
+    })
+}

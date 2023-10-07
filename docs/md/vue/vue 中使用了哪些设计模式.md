@@ -1,3 +1,12 @@
+---
+title: "vue 中使用了哪些设计模式"
+tag: "Vue"
+classify: "md"
+description: "设计模式"
+pubDate: "2023/2/16 16:33:48"
+heroImage: ""
+---
+
 # vue 中使用了哪些设计模式
 
 ## 工厂模式 
