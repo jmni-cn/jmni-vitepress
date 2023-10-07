@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /md/DOM/DOM事件.html
+      link: /list/
     - theme: alt
       text: View on GitHub
       link: https://github.com/jmni-cn/jmni-vitepress

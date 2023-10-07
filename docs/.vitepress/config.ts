@@ -93,12 +93,12 @@ export default defineConfig({
 
 function nav() {
   return [
-    { text: 'blog', link: '/md/DOM/DOM事件', activeMatch: '/md' },
-    {
-      text: 'daily',
-      link: '/daily/chat Based on OpenAI API',
-      activeMatch: '/daily'
-    }
+    { text: 'Article list', link: '/list/' },
+    // {
+    //   text: 'daily',
+    //   link: '/daily/chat Based on OpenAI API',
+    //   activeMatch: '/daily'
+    // }
     // {
     //   text: pkg.version,
     //   items: [
