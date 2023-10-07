@@ -1,5 +1,7 @@
 import { createRequire } from 'module'
 import { defineConfig } from 'vitepress'
+import { JSON } from './generateSidebar'
+console.log(JSON);
 
 const require = createRequire(import.meta.url)
 const pkg = require('vitepress/package.json')
@@ -52,10 +54,11 @@ export default defineConfig({
   themeConfig: {
     nav: nav(),
 
-    sidebar: {
-      '/md/': sidebarMd(),
-      '/daily/': sidebarDaily()
-    },
+    sidebar: JSON,
+    // sidebar: {
+    //   '/md/': sidebarMd(),
+    //   '/daily/': sidebarDaily()
+    // },
 
     editLink: {
       pattern: 'https://github.com/jmni-cn/jmni-vitepress/edit/main/docs/:path',
@@ -90,7 +93,7 @@ export default defineConfig({
 function nav() {
   return [
     { text: 'blog', link: '/md/DOM/DOM事件', activeMatch: '/md' },
-    { text: 'daily', link: '/daily/chat', activeMatch: '/daily' }
+    { text: 'daily', link: '/daily/chat Based on OpenAI API', activeMatch: '/daily' }
     // {
     //   text: pkg.version,
     //   items: [
@@ -203,7 +206,7 @@ function sidebarDaily() {
   return [
     {
       text: 'chat Based on OpenAI API',
-      link: '/daily/chat'
+      link: '/daily/chat Based on OpenAI API'
     }
   ]
 }
