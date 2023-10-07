@@ -22,7 +22,10 @@ export const cerateJson = () => {
 
       setTimeout(() => {
         resolve(sidebar)
-        writeTextFile(rootPath+'/.vitepress/output.json', JSON.stringify(sidebar))
+        writeTextFile(
+          rootPath + '/.vitepress/output.json',
+          JSON.stringify(sidebar)
+        )
       }, 2000)
     }
     await getSidebar()
@@ -79,11 +82,11 @@ export const sidebarJSON = await cerateJson()
 
 // writeTextFile('output.json', JSON.stringify(sidebar))
 function writeTextFile(filename, content) {
-    fs.writeFile(filename, content, (err) => {
-        if (err) {
-            console.error('Failed to write file:', err)
-        } else {
-            console.log('File written successfully.')
-        }
-    })
+  fs.writeFile(filename, content, (err) => {
+    if (err) {
+      console.error('Failed to write file:', err)
+    } else {
+      console.log('File written successfully.')
+    }
+  })
 }
