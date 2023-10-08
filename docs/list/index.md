@@ -60,7 +60,7 @@ ul, li {
     border-radius: 6px;
 }
 .list-page:hover{
-    /* background:#ccc */
+    background:var(--vp-c-bg-soft)
 }
 .tag{
     line-height: 1em;
