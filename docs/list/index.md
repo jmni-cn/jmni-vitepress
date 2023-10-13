@@ -10,7 +10,7 @@ const WHITELIST = ['/md/', '/daily/', '/knowledge/', '/blog/', '/list-page/']
 import { useData, useRouter, useRoute  } from 'vitepress'
 
 const { page, site } = useData()
-const sidebar = site.value.themeConfig.sidebar
+const sidebar = site.value.themeConfig.sidebars
 const list = []
 let pagelist = []
 

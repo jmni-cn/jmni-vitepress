@@ -53,9 +53,9 @@ export default defineConfig({
   },
 
   themeConfig: {
-    nav: nav(),
+    // nav: nav(),
 
-    sidebar: sidebarJSON,
+    sidebars: sidebarJSON,
     // sidebar: {
     //   '/md/': sidebarMd(),
     //   '/daily/': sidebarDaily()
@@ -66,10 +66,10 @@ export default defineConfig({
       text: 'Edit this page on GitHub'
     },
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/jmni-cn' },
-      { icon: 'twitter', link: 'https://twitter.com/jmni_zh' }
-    ],
+    // socialLinks: [
+    //   { icon: 'github', link: 'https://github.com/jmni-cn' },
+    //   { icon: 'twitter', link: 'https://twitter.com/jmni_zh' }
+    // ],
 
     footer: {
       message:
