@@ -38,8 +38,7 @@ npx tsc --init
 } 
 ```
 ## 配置选项
-官方文档：[www.typescriptlang.org/tsconfig](www.typescriptlang.org/tsconfig)
-
+官方文档：[https://www.typescriptlang.org/tsconfig](https://www.typescriptlang.org/tsconfig)
 ### include
 - 是一个数组，用来指定需要编译的ts文件，其中 *表示任意文件 **表示任意目录
 - 默认值：["**/*"]
