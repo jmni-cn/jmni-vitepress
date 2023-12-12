@@ -39,25 +39,25 @@ npx tsc --init
 ```
 ## 配置选项
 官方文档：[https://www.typescriptlang.org/tsconfig](https://www.typescriptlang.org/tsconfig)
-### include
+## include
 - 是一个数组，用来指定需要编译的ts文件，其中 *表示任意文件 **表示任意目录
 - 默认值：["**/*"]
 ```json
 "include":["src/**/*", "test/**/*"] // 所有src目录和test目录下的文件都会被编译
 ```
 
-### exclude
+## exclude
 - 定义不需要被编译的文件目录
 - 默认值：["node_modules", "bower_components", "jspm_packages"]
 ```json
 "exclude": ["./src/hello/**/*"]  // src下hello目录下的文件都不会被编译
 ```
-### extends
+## extends
 - 定义被继承的配置文件
 ```json
 "extends": "./configs/base" // 当前配置文件中会自动包含config目录下base.json中的所有配置信息
 ```
-### files
+## files
 - 指定被编译文件的列表，只有需要编译的文件少时才会用到
 ```json
 "files": [
@@ -74,7 +74,7 @@ npx tsc --init
 ```
 - 列表中的文件都会被TS编译器所编译
 
-### compilerOptions.lib
+## compilerOptions.lib
 - 指定代码运行时所包含的库（宿主环境）
 - 可选值："ES5", "ES6", "ES2015", "ES2015.Collection", "ES2015.Iterable", "ES2015.Promise", "DOM", "DOM.Iterable", "ScriptHost", "WebWorker", "WebWorker.ImportScripts"......
 ```json
@@ -83,7 +83,7 @@ npx tsc --init
 }
 ```
 
-### compilerOptions.target
+## compilerOptions.target
 - 设置ts代码编译的目标版本
 - 可选值： "ES3"（默认）, "ES5", "ES6", "ES2015", "ES2016", "ES2017", "ES2018", "ES2019", "ES2020", "ES2021", "ESNext".
 ```json
@@ -92,7 +92,7 @@ npx tsc --init
 }}
 ```
 
-### compilerOptions.module
+## compilerOptions.module
 - 设置编译后代码使用的模块化系统
 - 可选值："CommonJS", "AMD", "System", "UMD", "ES6", "ES2015", "ES2020", "ESNext", "None", "es2022", "node12", "nodenext"
 ```json
@@ -101,7 +101,7 @@ npx tsc --init
 }
 ```
 
-### compilerOptions.outDir
+## compilerOptions.outDir
 - 编译后文件的所在目录
 - 默认情况下，编译后的js文件会和ts文件位于相同的目录，设置outDir后可以改变编译后文件的位置
 ```json
@@ -110,7 +110,7 @@ npx tsc --init
 }
 ```
 
-### compilerOptions.outFile
+## compilerOptions.outFile
 - 将所有的文件编译为一个js文件
 - 默认会将所有的编写在全局作用域中的代码合并为一个js文件，如果 module 制定了 None、System 或 AMD 则会将模块一起合并到文件之中
 ```json
@@ -120,14 +120,14 @@ npx tsc --init
 ```
 这种合并，我们应该交给打包工具去做
 
-### compilerOptions.rootDir
+## compilerOptions.rootDir
 - 指定代码的根目录，默认情况下编译后文件的目录结构会以最长的公共目录为根目录，通过rootDir可以手动指定根目录
 ```json
 "compilerOptions": {
     "rootDir": "./src"
 }
 ```
-### 其他配置
+## 其他配置
 |标题|功能|
 |-|-|
 |allowJs|是否对js文件编译，默认值：false|
@@ -137,7 +137,7 @@ npx tsc --init
 |noEmitOnError|当有错误的时候不生成编译后的文件，默认值：false|
 |sourceMap|是否生成sourceMap，默认值：false|
 
-### 严格检查
+## 严格检查
 |标题|功能|
 |-|-|
 |strict|启用所有的严格检查，设置后相当于开启了所有的严格检查，默认值：false|
@@ -149,7 +149,7 @@ npx tsc --init
 |strictNullChecks|严格的空值检查，默认值：false|
 |strictPropertyInitialization|严格检查属性是否初始化，默认值：false|
 
-### 额外检查
+## 额外检查
 |标题|功能|
 |-|-|
 |noFallthroughCasesInSwitch|检查switch语句包含正确的break|
