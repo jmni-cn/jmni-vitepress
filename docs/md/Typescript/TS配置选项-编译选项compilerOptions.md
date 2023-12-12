@@ -1,5 +1,5 @@
 ---
-title: "TS配置选项&编译选项compilerOptions"
+title: "TS配置选项-编译选项compilerOptions"
 tag: "Typescript"
 classify: "md"
 description: "Typescript配置选项各字段的作用"
