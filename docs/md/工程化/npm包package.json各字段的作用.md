@@ -127,6 +127,35 @@ heroImage: ""
 }
 ```
 
+## publishConfig
+`publishConfig.access`定义将程序包发布到 npm 注册表时要使用的程序包访问级别。 有效值是公开的并且是受限制的，但是受限制的通常需要注册付费计划（这取决于你使用的注册表）。
+
+`publishConfig.bin`如果存在，则在打包打包以将其运送到远程注册表之前，清单中的顶级 bin 字段将被设置为此新值。 这不会修改真正的清单，只会修改存储在 tarball 中的清单。
+
+`publishConfig.browser`与`publishConfig.bin`属性的原理相同； 生成工作空间 tarball 时，将使用此值代替顶级浏览器字段。
+
+`publishConfig.executableFiles`默认情况下，出于可移植性的原因，在 bin 字段中列出的文件之外的文件都不会在结果包归档文件中标记为可执行文件。 executeFiles 字段使你可以声明必须设置了可执行标志（+ x）的其他字段，即使不能通过 bin 字段直接访问它们也是如此。
+
+`publishConfig.main`与`publishConfig.bin`属性相同的原理； 生成工作空间 tarball 时，将使用此值代替顶级“ main”字段。
+
+`ublishConfig.module`与`publishConfig.bin`属性相同的原理； 生成工作空间 tarball 时，将使用此值代替顶级“ module”字段。
+
+`publishConfig.registry`如果存在，当将包推送到远程位置时，将替换配置中定义的任何注册表。
+```json
+{
+  "publishConfig": {
+    "access": "public",
+    "bin": "./build/bin.js",
+    "browser": "./build/browser.js",
+    "executableFiles": ["./dist/shim.js"],
+    "main": "./build/index.js",
+    "module": "./build/index.mjs",
+    "registry": "https://npm.pkg.github.com"
+  }
+}
+```
+
+
 ## 参考
 [npm官方文档](https://docs.npmjs.com/files/package.json.html)
 
