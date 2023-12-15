@@ -32,6 +32,17 @@ function debounce(fn, delay) {
 }
 
 ```
+只有在连续的两次触发间隔一段时间才去执行`debounce`函数。
+通常适用于密集的触发某个回调时，在连续的两次触发函数需要间隔一段时间时需要使用`debounce`函数，
+如监听页面窗口的变化时，只有用户需要有个停顿的动作才可以触发一次：
+```js
+function log() {
+    console.log('log');
+}
+const debounceLog = debounce(log, 500)
+
+window.addEventListener('resize', debounceLog)
+```
 
 
 
@@ -59,7 +70,14 @@ function throttle(fn, interval) {
 }
 
 ```
-
+不管如何密集的触发某个回调，`throttle`函数总是需要间隔一段时间才会执行第二次
+```js
+function log() {
+    console.log('log');
+}
+const throttleLog = throttle(log, 3000)
+window.addEventListener('resize', throttleLog)
+```
 
 
 ## 加强版 throttle 函数
