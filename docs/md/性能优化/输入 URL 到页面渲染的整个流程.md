@@ -245,6 +245,7 @@ HTTP 请求由三部分构成，分别为：
 ```
 
 ## http的缓存问题
+![1703230962533.png](//static.jmni.cn/blog/img/fbc423f055f80d37e5eb.png)
 缓存可以简单的划分成两种类型：强缓存（`200 from cache`）与协商缓存（`304`）
 - 强缓存（`200 from cache`）时，浏览器如果判断本地缓存未过期，就直接使用，无需发起http请求
 - 协商缓存（`304`）时，浏览器会向服务端发起http请求，然后服务端告诉浏览器文件未改变，让浏览器使用本地缓存
@@ -254,15 +255,14 @@ HTTP 请求由三部分构成，分别为：
 通过不同的http头部控制强缓存和协商缓存
 
 **http1.0中的缓存控制：**
-- `Pragma`：**请求/响应头**，缓存控制字段，与http1.1的 Cache-Control 基本相同
+- **`Pragma`**：**请求/响应头**，缓存控制字段，与http1.1的 Cache-Control 基本相同
 权重更高，当该字段值为no-cache的时候，会告诉浏览器不要对该资源缓存，Expires、Cache-Control配置都将失效.
-> 严格来说，它不属于专门的缓存控制头部，但是它设置`no-cache`时可以让本地强缓存失效（属于编译控制，来实现特定的指令，主要是因为兼容http1.0，所以以前又被大量应用）
-- `Expires`：**响应头** 代表该资源的过期时间
+- **`Expires`**：**响应头** 代表该资源的过期时间
 服务端配置的，属于强缓存，用来控制在规定的时间之前，浏览器不会发出请求，而是直接使用本地缓存，注意，Expires一般对应服务器端时间，如`Expires：Fri, 30 Oct 1998 14:19:41`是一个绝对时间。
 
 
 **http1.1中的缓存控制：**
-- `Cache-Control`：**请求/响应头**缓存控制字段，精确控制缓存策略
+- **`Cache-Control`**：**请求/响应头**缓存控制字段，精确控制缓存策略
 > 配置如， `Cache-Control: max-age=3600`
 
 请求头字段
@@ -294,26 +294,25 @@ max-age= 同上
 s-maxage= 同上
 ```
 
-**Max-Age相比Expires？**
+Cache-Control:Max-Age相比Expires？
 `Expires`使用的是服务器端的时间,但是有时候会有这样一种情况-客户端时间和服务端不同步,那这样，可能就会出问题了，造成了浏览器本地的缓存无用或者一直无法过期.
 所以一般http1.1后不推荐使用Expires
 而`Max-Age`使用的是客户端本地时间的计算
-
 注意，如果同时启用了`Cache-Control`与`Expires`，`Cache-Control`优先级高。
 
-- If-Modified-Since **请求头** 缓存中保存的资源最近修改时间，由浏览器告诉服务器。
+- **If-Modified-Since 请求头** 缓存中保存的资源最近修改时间，由浏览器告诉服务器。
 > 配置如，If-Modified-Since: Thu, 19 Aug 2021 06:32:35 GMT
 
-- Last-Modified **响应头** 服务端真实的资源最近修改时间，由服务器告诉浏览器。
+- **Last-Modified 响应头** 服务端真实的资源最近修改时间，由服务器告诉浏览器。
 > 配置如，Last-Modified: Thu, 19 Aug 2021 06:32:35 GMT
 
-- If-None-Match **请求头** 缓存中保存的缓存资源标识，由浏览器告诉服务器。
+- **If-None-Match 请求头** 缓存中保存的缓存资源标识，由浏览器告诉服务器。
 > 配置如，If-None-Match: "611dfb03-6e28"
 
-- Etag **响应头** 服务端真实的资源标识，由服务器告诉浏览器。
+- **Etag 响应头** 服务端真实的资源标识，由服务器告诉浏览器。
 > 配置如，ETag: "611dfb03-6e28"
 
-**E-tag相比Last-Modified？**
+E-tag相比Last-Modified？
 
 `Last-Modified`:
 - 表明服务端的文件最后何时改变的
