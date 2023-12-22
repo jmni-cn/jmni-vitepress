@@ -254,15 +254,45 @@ HTTP 请求由三部分构成，分别为：
 通过不同的http头部控制强缓存和协商缓存
 
 **http1.0中的缓存控制：**
-- `Pragma`：严格来说，它不属于专门的缓存控制头部，但是它设置`no-cache`时可以让本地强缓存失效（属于编译控制，来实现特定的指令，主要是因为兼容http1.0，所以以前又被大量应用）
-- `Expires`：服务端配置的，属于强缓存，用来控制在规定的时间之前，浏览器不会发出请求，而是直接使用本地缓存，注意，Expires一般对应服务器端时间，如`Expires：Fri, 30 Oct 1998 14:19:41`
-- `If-Modified-Since/Last-Modified`：这两个是成对出现的，属于协商缓存的内容，其中浏览器的头部是`If-Modified-Since`，而服务端的是`Last-Modified`，它的作用是，在发起请求时，如果`If-Modified-Since`和`Last-Modified`匹配，那么代表服务器资源并未改变，因此服务端不会返回资源实体，而是只返回头部，通知浏览器可以使用本地缓存。`Last-Modified`，顾名思义，指的是文件最后的修改时间，而且只能精确到1s以内
+- `Pragma`：**请求/响应头**，缓存控制字段，与http1.1的 Cache-Control 基本相同
+权重更高，当该字段值为no-cache的时候，会告诉浏览器不要对该资源缓存，Expires、Cache-Control配置都将失效.
+> 严格来说，它不属于专门的缓存控制头部，但是它设置`no-cache`时可以让本地强缓存失效（属于编译控制，来实现特定的指令，主要是因为兼容http1.0，所以以前又被大量应用）
+- `Expires`：**响应头** 代表该资源的过期时间
+服务端配置的，属于强缓存，用来控制在规定的时间之前，浏览器不会发出请求，而是直接使用本地缓存，注意，Expires一般对应服务器端时间，如`Expires：Fri, 30 Oct 1998 14:19:41`是一个绝对时间。
+
 
 **http1.1中的缓存控制：**
-- `Cache-Control`：缓存控制头部，有`no-cache`、`max-age`等多种取值
-- `Max-Age`：服务端配置的，用来控制强缓存，在规定的时间之内，浏览器无需发出请求，直接使用本地缓存，注意，`Max-Age`是`Cache-Control`头部的值，不是独立的头部，譬如`Cache-Control: max-age=3600`，而且它值得是绝对时间，由浏览器自己计算
-- `If-None-Match/E-tag`：这两个是成对出现的，属于协商缓存的内容，其中浏览器的头部是`If-None-Match`，而服务端的是`E-tag`，同样，发出请求后，如果`If-None-Match`和`E-tag`匹配，则代表内容未变，通知浏览器使用本地缓存，和`Last-Modified`不同，`E-tag`更精确，它是类似于指纹一样的东西，基于`FileEtag INode Mtime Size`生成，也就是说，只要文件变，指纹就会变，而且没有1s精确度的限制。
+- `Cache-Control`：**请求/响应头**缓存控制字段，精确控制缓存策略
+> 配置如， `Cache-Control: max-age=3600`
 
+请求头字段
+```
+max-age= 缓存保存多长时间
+max-stale[=] 缓存过期多久之内还能接受
+min-fresh= 希望获取一个多久时间内还能保持最新的数据
+no-cache 强制请求服务器验证[协商缓存验证]
+no-store 不使用任何缓存
+no-transform 不允许代理修改请求头(没啥用
+only-if-cached 只从缓存中取资源，不请求服务端，若请求无缓存返回504
+```
+>只有服务端才能开启缓存，默认是不会走缓存的
+>走了强缓存就不会再向服务端发送请求了
+>客户端的请求头中只有设置了`cache-control`为：`'no-store' | 'no-cache' | 'max-age=0'`才会生效（也就是客户端不想走强缓存的时候生效），除非后端对这个字段做特殊处理
+
+
+响应头字段
+
+```
+must-revalidate 过期后，在成功向服务器验证之前，缓存不能用该资源响应后续请求。
+no-cache 同上
+no-store 同上
+no-transform 同上
+public 表明响应可以被任何对象缓存（包括：发送请求的客户端，代理服务器，等等）
+private 表明响应只能被单个用户缓存，不能作为共享缓存（即代理服务器不能缓存它）
+proxy-revalidate 与must-revalidate相同，但仅适用于共享缓存，并被私有缓存忽略
+max-age= 同上
+s-maxage= 同上
+```
 
 **Max-Age相比Expires？**
 `Expires`使用的是服务器端的时间,但是有时候会有这样一种情况-客户端时间和服务端不同步,那这样，可能就会出问题了，造成了浏览器本地的缓存无用或者一直无法过期.
@@ -270,6 +300,18 @@ HTTP 请求由三部分构成，分别为：
 而`Max-Age`使用的是客户端本地时间的计算
 
 注意，如果同时启用了`Cache-Control`与`Expires`，`Cache-Control`优先级高。
+
+- If-Modified-Since **请求头** 缓存中保存的资源最近修改时间，由浏览器告诉服务器。
+> 配置如，If-Modified-Since: Thu, 19 Aug 2021 06:32:35 GMT
+
+- Last-Modified **响应头** 服务端真实的资源最近修改时间，由服务器告诉浏览器。
+> 配置如，Last-Modified: Thu, 19 Aug 2021 06:32:35 GMT
+
+- If-None-Match **请求头** 缓存中保存的缓存资源标识，由浏览器告诉服务器。
+> 配置如，If-None-Match: "611dfb03-6e28"
+
+- Etag **响应头** 服务端真实的资源标识，由服务器告诉浏览器。
+> 配置如，ETag: "611dfb03-6e28"
 
 **E-tag相比Last-Modified？**
 
