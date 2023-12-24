@@ -321,3 +321,120 @@ obj.__proto__ = Da.prototype;
 Da.call(obj);
 ```
 
+## defer 和 async
+
+![defer和async.png](//static.jmni.cn/blog/img/9094ad96c82c2ddce9f1.png)
+defer 和 async 加载不阻塞
+async 执行可能阻塞可能不阻塞，主要看加载速度
+defer 执行不阻塞
+
+> `<script>`标签上有 defer 或 async 属性，脚本就会异步加载。
+> 渲染引擎遇到这一行命令，就会开始下载外部脚本.
+> 但不会等它下载和执行，而是直接执行后面的命令。
+
+defer 要等到整个页面在内存中正常渲染结束（DOM 结构完全生成，以及其他脚本执行完成），才会执行；
+async 一旦下载完，渲染引擎就会中断渲染，执行这个脚本以后，再继续渲染。
+一句话，defer 是“渲染完再执行”，async 是“下载完就执行”。
+另外，如果有多个 defer 脚本，会按照它们在页面出现的顺序加载，
+而多个 async 脚本是不能保证加载顺序的。
+
+async 对于应用脚本的用处不大，因为它完全不考虑依赖（哪怕是最低级的顺序执行），不过它对于那些可以不依赖任何脚本或不被任何脚本依赖的脚本来说却是非常合适的，最典型的例子：Google Analytics
+
+## loader 和 plugin 的区别
+
+loader 即为文件加载器，操作的是文件，将文件 A 通过 loader 转换成文件 B，是一个单纯的文件转化过程。
+
+plugin 即为插件，是一个扩展器，丰富 webpack 本身，增强功能 ，针对的是在 loader 结束之后，webpack 打包的整个过程，他并不直接操作文件，而是基于事件机制工作，监听 webpack 打包过程中的某些节点，执行广泛的任务。
+
+## 死锁产生的四个条件
+
+## HTTPS 原理详解
+
+协议
+1、HTTP 协议（HyperText Transfer Protocol，超文本传输协议）：是客户端浏览器或其他程序与 Web 服务器之间的应用层通信协议 。
+
+2、HTTPS 协议（HyperText Transfer Protocol over Secure Socket Layer）：可以理解为 HTTP+SSL/TLS， 即 HTTP 下加入 SSL 层，HTTPS 的安全基础是 SSL，因此加密的详细内容就需要 SSL，用于安全的 HTTP 数据传输。
+
+![https.png](//static.jmni.cn/blog/img/5aa773b3e56301c2e969.png)
+如上图所示 HTTPS 相比 HTTP 多了一层 SSL/TLS
+
+SSL（Secure Socket Layer，安全套接字层）：1994 年为 Netscape 所研发，SSL 协议位于 TCP/IP 协议与各种应用层协议之间，为数据通讯提供安全支持。
+
+TLS（Transport Layer Security，传输层安全）：其前身是 SSL，它最初的几个版本（SSL 1.0、SSL 2.0、SSL 3.0）由网景公司开发，1999 年从 3.1 开始被 IETF 标准化并改名，发展至今已经有 TLS 1.0、TLS 1.1、TLS 1.2 三个版本。SSL3.0 和 TLS1.0 由于存在安全漏洞，已经很少被使用到。TLS 1.3 改动会比较大，目前还在草案阶段，目前使用最广泛的是 TLS 1.1、TLS 1.2。
+
+## typeof 和 instanceof
+
+`typeof null` 输出结果为 `object`
+`instanceof`的判断就是根据原型链进行搜寻，在对象 obj1 的原型链上如果存在另一个对象 obj2 的原型属性，那么表达式（obj1 instanceof obj2）返回值为 true；否则返回 false
+
+## v8 垃圾回收
+
+[https://time.geekbang.org/column/article/230845](https://time.geekbang.org/column/article/230845)
+
+
+
+
+
+## js 拷贝 & 如何拷贝正则表达式的值
+
+```js
+let obj2 = {...obj1}
+let arr2 = [...arr1] //跟 arr.slice()一样的效果
+
+let arr1 = [1,2,3]
+let arr2 = arr1.slice()
+
+let arr1 = [1,2,3]
+let arr2 = arr1.concat()
+```
+
+`JSON.parse(JSON.stringify(target))`
+
+**JSON.stringify 会丢失的内容有以下内容**
+使用 JSON.Stringify 转换的数据中，如果包含 function，undefined，Symbol，这几种类型，不可枚举属性，JSON.Stringify 序列化后，这个键值对会消失。
+转换的数据中包含 NaN，Infinity 值（含-Infinity），JSON 序列化后的结果会是 null。
+转换的数据中包含 Date 对象，JSON.Stringify 序列化之后，会变成字符串。
+转换的数据包含 RegExp 引用类型序列化之后会变成空对象。
+无法序列化不可枚举属性。
+无法序列化对象的循环引用，对象成环（例如: obj[key] = obj)。
+无法序列化对象的原型链。
+
+**获取数据类型**
+
+typeof：能准确判断基本数据类型，但一般复杂数据类型无法判断
+instanceof：能准确判断复杂数据类型，但基本数据类型不行
+Object.property.toString.call：全部可以
+
+**拷贝 set**
+
+```js
+function deepClone(val) {
+  if (isSet(val)) {
+    const set = new Set();
+    val.forEach((item) => {
+      set.add(deepClone(item));
+    });
+  }
+}
+```
+
+**拷贝正则和date**
+```js
+  function deepClone (val) {
+  const Ctor = val.constructor
+  if (isDate(val)) {
+    return new Ctor(+val)
+  } else if (isRegExp(val)) {
+    const reFlags = /\w*$/;
+    // 此处不用flags的原因在于flags方法返回的修饰符是按照字母顺序排列的
+    const reg = new Ctor(val.source, reFlags.exec(val))
+    reg.lastIndex = val.lastIndex
+    return reg
+  }
+}
+```
+
+
+
+
+
