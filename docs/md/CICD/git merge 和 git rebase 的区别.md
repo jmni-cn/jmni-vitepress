@@ -13,6 +13,7 @@ rebase 并没有进行合并操作，只是提取了当前分支的修改，将�
 rebase 操作会丢弃当前分支已提交的 commit，故不要在已经 push 到远程，和其他人正在协作开发的分支上执行 rebase 操作
 merge 与 rebase 都是很好的分支合并命令，没有好坏之分，使用哪一个应由团队的实际开发需求及场景决定
 
+**一句话概括：保留记录用merge，清除记录用rebase，合代码进master用merge！**
 
 ## git merge
  `git merge`命令 它会把两个分支的最新快照以及二者最近的共同祖先进行三方合并，合并的结果是生成一个新的快照（并提交）。
@@ -40,6 +41,8 @@ git rebase -i <startCommitId> <endCommitId>
 // 下面这种写法也支持，n是要合并的个数
 git rebase -i HEAD~n
 ```
+![rebase和merge.jpeg](//static.jmni.cn/blog/img/c81fc0dee6b145df934c.jpeg)
+![rebase和merge2.jpeg](//static.jmni.cn/blog/img/7890388b14b9d8a03d98.jpeg)
 
 ## HEAD和指针
 Git 又是怎么知道当前在哪一个分支上呢？ 也很简单，它有一个名为 HEAD 的特殊指针，指向当前所在的本地分支（译注：将 HEAD 想象为当前分支的别名）
