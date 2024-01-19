@@ -6,6 +6,25 @@ description: "nestjs基础"
 pubDate: "2024/1/19 14:35:29"
 heroImage: ""
 ---
+## Nest的优势
+Nest 类似于java中的 Spring Boot ，吸取了很多优秀的思想和想法。对 面向对象编程(OOP） 和面向切面支持的非常好
+nest中涉及的编程范式
+* 面向对象编程(OOP）
+* 面向切面编程(AOP) - 拦截器
+* 控制反转（Inversion of Control，IoC）
+* 依赖注入（Dependency Injection，DI）
+* 函数式编程(FP)
+* ...
+> 控制反转是一种面向对象编程中的一种设计原则，用来减低计算机代码之间的耦合度，其基本思想是：借助于“第三方”实现具有依赖关系的对象之间的解耦。依赖注入是一种用于实现ioc的设计模式，它允许类外创建依赖对象，并通过不同的方式将这些对象提供给类。
+
+其生命周期
+
+![nestjscreate.png](//static.jmni.cn/blog/img/1beb78fe0b71cd02faad.png)
+* 当客户端一个Http请求到来时，首先过的中间件。
+* 再是过的守卫（守卫只有通过和不通过）。
+* 拦截器（这里我们可以看到，我们在执行函数前后都能做某些事情，统一的返回格式等等）。
+* 管道，我们可以做参数校验和值的转换。
+* Controller
 
 ## 1. Spring三层架构
 - Controller层俗称控制层，负责请求转发，接收页面（前端H5或者App）传过来的参数，并调用Service层中定义的方法进行业务操作，再将处理结果返回前端。
@@ -206,7 +225,8 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
   // 异常过滤器
   app.useGlobalFilters(new AllExceptionsFilter(), new HttpExceptionFilter());
-
+  // 全局使用超时拦截 TimeoutInterceptor 见本文最下方
+  app.useGlobalInterceptors(new TimeoutInterceptor());
   // 接口版本化管理
   app.enableVersioning({
     defaultVersion: [VERSION_NEUTRAL, '1'],
@@ -256,3 +276,17 @@ NestJS自带了三个开箱即用的管道：ValidationPipe、ParseIntPipe和Par
 
 
 [NestJS官方文档](http://nestjs.inode.club/)
+
+```ts
+/**
+* 您想要处理路线请求的超时。当您的端点在一段时间后没有返回任何内容时，
+* 您希望以错误响应终止。以下结构可实现此目的
+* 10s 超时
+*/
+@Injectable()
+export class TimeoutInterceptor implements NestInterceptor {
+  public intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    return next.handle().pipe(timeout(10000));
+  }
+}
+```
