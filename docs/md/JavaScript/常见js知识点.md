@@ -433,7 +433,45 @@ function deepClone(val) {
   }
 }
 ```
+## BigInt与Number
+BigInt是JavaScript中的一种数据类型，用于表示任意精度的整数。在传统的JavaScript中，整数的范围被限制在Number类型的64位浮点数表示范围内，而BigInt可以表示任意大的整数，不受范围限制。BigInt可以进行各种数学运算，包括加法、减法、乘法、除法和求余等。与普通的Number类型不同，BigInt的运算结果也是BigInt类型
 
+使用BigInt时，需要在整数后面加上n或N来表示，例如：`const bigIntNumber = 12345678901234567890n`。
+
+BigInt与Number类型不能直接进行混合运算，需要通过转换才能进行运算。另外，一些内置的数学函数和操作符可能不支持BigInt类型，需要使用对应的BigInt函数和操作符来处理。
+
+## Number.EPSILON
+
+Number.EPSILON的值为`2.220446049250313e-16`，它是一个非常接近于零的数，在浮点数数值计算中被用作误差范围的判断标准。
+
+在进行浮点数比较时，由于浮点数的精度问题，直接进行等于（==）或不等于（!=）的比较可能会导致错误的结果。因此，通常会使用EPSILON来判断两个浮点数是否在一个可接受的误差范围内相等。
+
+例如，可以使用以下代码来比较两个浮点数是否相等：
+
+```js
+function isEqual(a, b) {
+  return Math.abs(a - b) < Number.EPSILON;
+}
+console.log(isEqual(0.1 + 0.2, 0.3)); // true
+```
+
+在这个例子中，0.1 + 0.2的结果应该是0.3，但由于浮点数的精度问题，直接比较可能会得到false的结果。通过使用EPSILON，可以判断它们是否在一个可接受的误差范围内相等，从而得到正确的结果。
+
+## Number.MAX_SAFE_INTEGER
+MAX_SAFE_INTEGER是JavaScript中的一个常量，它代表了JavaScript中可以安全表示的最大整数。
+
+Number.MAX_SAFE_INTEGER的值为9007199254740991，它是2的53次方减1。这个值是由于JavaScript中的Number类型使用64位双精度浮点数来表示数值，其中一部分用于表示指数，一部分用于表示尾数。而在这个表示范围内，可以准确表示的整数范围是从-9007199254740991到9007199254740991。
+
+超过Number.MAX_SAFE_INTEGER的整数将失去精度，可能会导致计算结果不准确。
+
+为了避免整数精度问题，可以使用BigInt类型来处理超过MAX_SAFE_INTEGER的整数。例如，可以使用以下代码来表示超过MAX_SAFE_INTEGER的整数：
+
+```js
+const bigIntNumber = BigInt(9007199254740991) + BigInt(1);
+console.log(bigIntNumber); // 9007199254740992n
+```
+## Number.MAX_VALUE
+Number.MAX_VALUE表示的是正数的最大值，如果超过这个值，JavaScript会将其表示为Infinity（正无穷大）。负数的最小值可以通过Number.MIN_VALUE来表示，它约等于5e-324。
 
 
 
