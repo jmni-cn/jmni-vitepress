@@ -10,7 +10,7 @@ heroImage: "/img/switchyomega.jpg"
 # 抓包工具whistle
 
 ## 安装Node
-whistle支持v0.10.0以上版本的Node，为获取更好的性能，推荐安装最新版本的Node。
+whistle支持v0.10.0以上版本的Node，为获取更好的性能，推荐安装最新版本的[Node](https://nodejs.org/zh-cn/download)。
 
 如果你的系统已经安装了v0.10.0以上版本的Node，可以忽略此步骤，直接进入安装whistle的步骤
 
