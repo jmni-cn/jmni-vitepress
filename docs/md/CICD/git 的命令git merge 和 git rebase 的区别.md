@@ -67,3 +67,199 @@ Git 又是怎么知道当前在哪一个分支上呢？ 也很简单，它有一
 * 执行交互式的 rebase 操作：使用 `git rebase -i HEAD~n` 命令可以执行交互式的变基操作，编辑、合并或重新排序提交；这个代码简单理解成对最近n次提交进行操作。
 
 在网上看到一个比较好的解答[https://juejin.cn/post/6844903826646892557?from=search-suggest](https://juejin.cn/post/6844903826646892557?from=search-suggest)
+
+# git 的常用命令操作
+
+## 1) 初始化与克隆
+
+```bash
+git init                  # 当前目录初始化仓库
+git clone <url>           # 克隆远程仓库
+```
+
+常见：
+
+```bash
+
+git clone -b develop <url>  # 克隆并直接切到指定分支
+```
+
+---
+
+## 2) 基础三板斧：状态 / 暂存 / 提交
+
+```bash
+git status                # 看当前改动、暂存区状态
+git add .                 # 把所有改动加入暂存区
+git add -p                # 交互式分块 add（很推荐）
+git commit -m "msg"       # 提交
+```
+
+想改上一次提交信息/补进文件：
+
+```bash
+git commit --amend
+```
+
+---
+
+## 3) 分支：创建 / 切换 / 删除
+
+```bash
+git branch                # 看本地分支
+git branch -a             # 看所有分支（含远程）
+git switch <name>         # 切换分支（新命令，推荐）
+git checkout <name>       # 切换分支（旧命令）
+git switch -c feat/login  # 创建并切换
+git branch -d <name>      # 删除本地分支（已合并才允许）
+git branch -D <name>      # 强制删除本地分支
+```
+
+---
+
+## 4) 拉取与推送：同步远端
+
+```bash
+git fetch                 # 只拉远端引用，不改本地代码
+git pull                  # = fetch + merge（会产生 merge）
+git pull --rebase         # = fetch + rebase（更干净的线性历史）
+git push                  # 推送当前分支到远端
+git push -u origin <name> # 第一次推送并绑定上游
+```
+
+删除远程分支：
+
+```bash
+git push origin --delete <branch>
+```
+
+---
+
+## 5) 查看历史：定位问题必备
+
+```bash
+git log --oneline --graph --decorate --all   # 最常用的历史视图
+git show <hash>                               # 看某次提交详情
+git diff                                     # 工作区 vs 暂存区
+git diff --staged                            # 暂存区 vs HEAD
+```
+
+---
+
+## 6) 撤销与回滚：最容易踩坑的部分
+
+### 6.1 撤销工作区改动（还没 add）
+
+```bash
+git restore <file>        # 撤销单文件
+git restore .             # 撤销全部
+```
+
+### 6.2 撤销暂存（add 了但没 commit）
+
+```bash
+git restore --staged <file>
+git restore --staged .
+```
+
+### 6.3 回滚一次提交（已提交、历史保留、推荐）
+
+```bash
+git revert <hash>
+```
+
+可以用下面命令看它是不是 merge commit（输出里如果有 Merge: ... 就是）：
+
+```bash
+git show --summary <hash>
+```
+
+如果是 merge commit，一般要这样回滚（保留主线 parent=1 的情况最常见）：
+
+```bash
+git revert -m 1 <hash>
+```
+
+回滚后会进入编辑提交 message 界面：
+>按 Esc 输入 :wq 
+然后回车保存并退出，revert 提交就会生成（默认这段 message 保留就行）
+
+### 6.4 重写历史（危险，慎用）
+
+把分支“回到某个提交”并丢掉后面的历史：
+
+```bash
+git reset --hard <hash>
+git push -f
+```
+
+适合：个人分支、没人基于你的分支开发；不适合：共享主干分支。
+
+---
+
+## 7) 合并与变基：团队协作核心
+
+### merge（保留分支结构）
+
+```bash
+git merge feat/login
+```
+
+### rebase（线性历史，更干净）
+
+```bash
+git rebase develop
+```
+
+解决冲突流程：
+
+```bash
+# 手动改冲突文件
+git add .
+git rebase --continue     # 或 git merge --continue（较少见）
+git rebase --abort        # 放弃本次 rebase
+```
+
+---
+
+## 8) 临时保存：stash（切分支救命）
+
+```bash
+git stash                 # 把未提交改动暂存起来
+git stash list
+git stash pop             # 取出并删除 stash
+git stash apply           # 取出但保留 stash
+git stash drop            # 删除某个 stash
+```
+
+---
+
+## 9) 远程与配置：常用信息
+
+```bash
+git remote -v             # 查看远程地址
+git remote set-url origin <url>  # 修改远程地址
+
+git config --global user.name "xxx"
+git config --global user.email "xxx@xx.com"
+```
+
+---
+
+## 10) 推荐一套“日常标准工作流”（你可直接照抄）
+
+```bash
+git switch develop
+git pull --rebase
+
+git switch -c feat/xxx
+# coding...
+
+git add -p
+git commit -m "feat: xxx"
+
+git push -u origin feat/xxx
+# 提 PR，review 合并
+```
+
+
